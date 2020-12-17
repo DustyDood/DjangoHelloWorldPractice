@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Hello World Home{% endblock %}
+
+{% block header %}Hello, World! Welcome to my website!{% endblock %}
+
+{% block content %}
+
+<div class="user_panel">
+    <form name="userForm" method="POST" action="../details/">
+        <table>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {{ form.as_table }}
+        </table>
+        <div class="frmBtn_container">
+            <input type="submit">
+                <div class="frmBtn">
+                    <!--This part is a little janky... Since I used JS to call the website, I'm not passing form.pk
+                     through the url, causing me to have to grab it here through form.instance.pk.
+                     The issue is that the delete view still isn't calling, even though the link/button
+                     looks like it should be going to the respective delete entry page...-->
+
+                </div>
+        </div>
+
+    </form>
+    <a href="../../{{ form.instance.pk }}/delete/"><button class="btn">DELETE</button> </a>
+    <!-- The issue is that this button is actually doing the POST loop in view.user_details! Instead of
+    going to a new page (the delete page), it's going back to the user_details and actually running the
+    POST loop, causing it to update and save the information rather than going to the delete page.
+    -->
+
+    <!-- Is it because of the form tag being below?
+    Even the cancel button is causing info to be saved! -->
+
+    <a href="{% url 'home_page' %}"><button class="btn">CANCEL</button></a>
+
+    <!-- This does work now!!! We can actually use the back and go buttons to navigate to possibly deleting a user or not.
+    The issue is that on the delete page, the POST requests are still going, so the cancel button isn't cooperating.
+    I can remove the form tag around the cancel button and theoretically it should work...
+    Testing now -->
+
+</div>
+
+
+{% endblock %}

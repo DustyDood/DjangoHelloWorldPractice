@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Hello World Home{% endblock %}
+
+{% block header %}Hello, World! Welcome to my website!{% endblock %}
+
+{% block content %}
+
+    <p>This website is for very basic Django practice currently!</p>
+    <p>I'm getting used to basic Django concepts and implementing them, such as utilizing DTL</p>
+
+    <div class="user_panel">
+        <!--What is the action significant for? I can change it to anything and it'll still work...-->
+        <form name="userForm" method="POST" action="">
+            {% csrf_token %}
+            <label for="user_id">Select a user from the list to edit:</label>
+            <select id="user_id" name="user">
+                {% for user in users %}
+                    <option value="../{{ user.pk }}/details/">{{ user }}</option>
+                {% endfor %}
+            </select>
+            <div class="fromBtn_container">
+
+                <button type="button" class="btn" onclick="beepboop()">JS Testing</button>
+                <a href="{% url 'home_page' %}"><button type="button" class="btn">Go back home</button> </a>
+                <p>NOTE: The above "Go Back Home" button is useless currently, as I was thinking of implementing a home landing page
+                Instead, I'm just using the landing page as the user select page. If I change it in the future, it's still handy to have.</p>
+            </div>
+
+
+        </form>
+    </div>
+
+{% endblock %}

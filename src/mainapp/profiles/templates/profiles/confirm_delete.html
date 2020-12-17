@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Page{% endblock %}
+
+{% block header %}Delete Confirmation!{% endblock %}
+
+{% block content %}
+
+<div class="user_delete">
+    <form method="POST" action=".">
+        {% csrf_token %}
+        <h3>DELETION FINAL WARNING!</h3>
+        <p>Are you sure you want to delete {{item}}?</p>
+        <p>There's no going back once you do so!</p>
+        <input type="submit" value="Yes, Goodbye!">
+    </form>
+
+    <!--Even if the cancel link below is hit, the entry is still deleting!-->
+    <a href="{% url 'home_page' %}"><button>Jk, take me back!</button></a>
+    <!-- I've now moved the cancel button to be outside of the form tag, which should avoid the POST request.
+    Let's see if it's still delete now! -->
+
+
+</div>
+
+
+{% endblock %}
